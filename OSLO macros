@@ -1,0 +1,54 @@
+/**********************************************************************
+*                Trace skewed Gaussian beam                           *
+*                   Created by Edo Hogeg                              *
+*                Beta stage testing - going to the MOON!!             *
+***********************************************************************/
+
+/**********************************************************************
+*                         Add to this macro                           *
+*                                                                     *
+* 1. extend the input vars to accommodate the need for different      *
+*    wave_lengths - Half way done! no need for further generalization *
+*    for this testing stage.                                          *
+* 2. for loops in the running of vw() and tgb() - DONE!               *
+* 3. maybe an option for the filename or destination? - Don't need    *
+*    this at this stage                                               *
+***********************************************************************/
+
+
+
+cmd trace_skew_gaussian_beam(double Y_beam_radius, double X_beam_radius, double Y_wavefront_radius, double X_wavefront_radius)
+{	
+	
+	/*Initializing constants and reseting OSLO text window*/
+	double lambda_min, lambda_max, delta_lambda, wave_length;
+	char path[256];
+	int i=0;
+	
+	
+	/* clear the text window*/
+	twr;
+	
+	/*For the testing stage the wavelengths are constants*/
+	lambda_min = 0.4;
+	lambda_max = 0.7;
+	delta_lambda = 0.1;
+	
+	/* create path for the output file */
+	strcpy(path,"C:\Users\pc-user\Documents\MATLAB\Edo\OSLO by Edo/output.txt");
+	
+	 
+	/*setting the wave_length for the specific run (for loops will be added) 
+	*NOTE: the wave_length must be changed BEFOR running tgb() */
+	
+	while(lambda_min+i*delta_lambda < lambda_max){
+		wave_length = lambda_min + i*delta_lambda;
+		wv(wave_length);
+		tgb(ful,srf,Y_beam_radius,X_beam_radius,Y_wavefront_radius,X_wavefront_radius,0,4,4,1); 
+		i++;
+	
+	}
+	/*copy text window to .txt file*/
+	twp(File,No,path);
+	
+}
